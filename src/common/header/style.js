@@ -48,7 +48,7 @@ export const NavItem = styled.div`
 export const NavSearchWrapper = styled.div`
   float:left;
   position:relative;
-  .iconfont{
+  .zoom{
      position: absolute;
      right: 5px;
      bottom: 5px;
@@ -74,6 +74,9 @@ export const SearchInfoTitle = styled.div`
 export const SearchInfoSwitch = styled.span`
    float: right;
    font-size: 13px;
+   .spin{
+    font-size:12px;
+   }
 `;
 export const SearchInfoList = styled.div`
    overflow: hidden;
@@ -125,14 +128,14 @@ export const NavSearch = styled.input.attrs({
     width: 240px;
   }
   &.slide-enter{
-    transition: all .2s ease-out;
+    transition: all .5s ease-out;
     width: 160px;
   }
   &.slide-enter-active{
     width: 240px;
   }
   &.slide-exit{
-    transition: all .2s ease-out;
+    transition: all .5s ease-out;
     width: 240px;
   }
   &.slide-exit-active{

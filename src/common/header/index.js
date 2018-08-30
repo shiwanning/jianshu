@@ -30,7 +30,7 @@ class Header extends Component{
                    <NavSearchWrapper>
                        <CSSTransition
                            classNames = "slide"
-                           timeout = {200}
+                           timeout = {500}
                            in = { focused }
                        >
                            <NavSearch
@@ -40,7 +40,7 @@ class Header extends Component{
                            >
                            </NavSearch>
                        </CSSTransition>
-                       <i className={ focused ? 'iconfont focused ' : 'iconfont' }>&#xe614;</i>
+                       <i className={ focused ? 'iconfont focused zoom' : 'iconfont zoom' }>&#xe614;</i>
                        { this.getListArea(focused, mouseIn, currentList, getListAreaHandleChanged, handleMouseEnter, handleMouseLeave)}
                    </NavSearchWrapper>
                </Nav>
@@ -64,7 +64,10 @@ class Header extends Component{
                 >
                     <SearchInfoTitle>
                         热门搜索
-                        <SearchInfoSwitch onClick={handleListChanged}>换一批</SearchInfoSwitch>
+                        <SearchInfoSwitch onClick={handleListChanged}>
+                            <i className="iconfont spin">&#xe851;</i>
+                            换一批
+                        </SearchInfoSwitch>
                     </SearchInfoTitle>
                     <SearchInfoList>
                         { list.map((item,index) =>
