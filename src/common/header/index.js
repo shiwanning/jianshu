@@ -15,7 +15,8 @@ class Header extends Component{
            getListAreaHandleChanged,
            handleMouseEnter,
            handleMouseLeave,
-           mouseIn
+           mouseIn,
+           list
            } = this.props;
        return(
            <HeaderWrapper>
@@ -35,7 +36,7 @@ class Header extends Component{
                        >
                            <NavSearch
                                className = { focused ? 'focused' : '' }
-                               onFocus = { handleInputOnFocus }
+                               onFocus = { () =>  handleInputOnFocus(list) }
                                onBlur = { handleInputOnBlur }
                            >
                            </NavSearch>
@@ -64,8 +65,8 @@ class Header extends Component{
                 >
                     <SearchInfoTitle>
                         热门搜索
-                        <SearchInfoSwitch onClick={handleListChanged}>
-                            <i className="iconfont spin">&#xe851;</i>
+                        <SearchInfoSwitch onClick={() => {handleListChanged(this.spinIcon)}}>
+                            <i ref={(icon) => {this.spinIcon = icon}} className="iconfont spin">&#xe851;</i>
                             换一批
                         </SearchInfoSwitch>
                     </SearchInfoTitle>
@@ -98,14 +99,22 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
    return {
-       handleInputOnFocus(){
-            dispatch(actionCreators.getList());
+       handleInputOnFocus(list){
+           console.log(list+"--------------");
+           (list.size === 0)&&dispatch(actionCreators.getList());
             dispatch(actionCreators.handleInputOnFocus());
        },
        handleInputOnBlur(){
            dispatch(actionCreators.handleInputOnBlur());
        },
-       getListAreaHandleChanged(){
+       getListAreaHandleChanged(spinIcon){
+           let originAngle = spinIcon.style.transform.replace(/[^0-9]/ig, '');
+           if(originAngle){
+               originAngle = parseInt(originAngle,10);
+           }else{
+               originAngle = 0;
+           }
+           spinIcon.style.transform = 'rotate('+(originAngle+360)+'deg)';
            dispatch(actionCreators.getListAreaHandleChanged());
        },
        handleMouseEnter(){
