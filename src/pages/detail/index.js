@@ -5,8 +5,8 @@ import { connect } from  'react-redux';
 class Detail extends PureComponent {
 
    componentDidMount(){
-      const { initDetailData } = this.props;
-       initDetailData();
+      const { initDetailData, match : { params : { id : requestId} } } = this.props;
+       initDetailData(requestId);
        console.log(this.props);
    }
 
@@ -29,8 +29,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    initDetailData(){
-        dispatch(actionCreators.initDetailData());
+    initDetailData(id){
+        dispatch(actionCreators.initDetailData(id));
     },
 });
 

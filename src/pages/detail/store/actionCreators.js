@@ -12,9 +12,9 @@ const initDataFromDetail = (initData) => {
     };
 };
 
-export const initDetailData = () => {
+export const initDetailData = (id) => {
    return (dispatch) => {
-       axios.get('/api/detail.json').then((res) => {
+       axios.get('/api/detail.json?id='+id).then((res) => {
            const { data : { data : initData }} = res;
            dispatch(initDataFromDetail(initData));
        })
