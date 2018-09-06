@@ -2,12 +2,13 @@ import  React, { PureComponent } from 'react';
 import { DetailWrapper, Header, Content } from  './style';
 import { actionCreators } from './store/index';
 import { connect } from  'react-redux';
+import { withRouter } from 'react-router-dom'
 class Detail extends PureComponent {
 
    componentDidMount(){
       const { initDetailData, match : { params : { id : requestId} } } = this.props;
        initDetailData(requestId);
-       console.log(this.props);
+       //console.log(this.props);
    }
 
     render(){
@@ -34,4 +35,4 @@ const mapDispatchToProps = (dispatch) => ({
     },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Detail);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Detail));

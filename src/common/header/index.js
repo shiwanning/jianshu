@@ -3,6 +3,7 @@ import { HeaderWrapper, Logo, Nav, NavItem, NavSearch, Addition, Button, NavSear
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import { actionCreators } from './store';
+import { actionCreators as loginActionCreators } from '../../pages/login/store';
 import { Link } from 'react-router-dom';
 
 
@@ -17,7 +18,9 @@ class Header extends PureComponent{
            handleMouseEnter,
            handleMouseLeave,
            mouseIn,
-           list
+           list,
+           login,
+           logOut
            } = this.props;
        return(
            <HeaderWrapper>
@@ -27,7 +30,8 @@ class Header extends PureComponent{
                <Nav>
                    <NavItem className="left active">首页</NavItem>
                    <NavItem className="left">下载App</NavItem>
-                   <NavItem className="right">登录</NavItem>
+                   {!login? <Link to="/login"><NavItem className="right">登录</NavItem></Link>
+                       : <NavItem className="right" onClick = {logOut}>退出</NavItem>}
                    <NavItem className="right">
                        <i className="iconfont">&#xe636;</i>
                    </NavItem>
@@ -49,10 +53,12 @@ class Header extends PureComponent{
                    </NavSearchWrapper>
                </Nav>
                <Addition>
-                   <Button className="writting">
-                       <i className="iconfont">&#xe6a4;</i>写文章
-                   </Button>
-                   <Button className="reg">注册</Button>
+                   <Link to="/write">
+                       <Button className="writting">
+                           <i className="iconfont">&#xe6a4;</i>写文章
+                       </Button>
+                   </Link>
+                   {!login&&<Button className="reg">注册</Button>}
                </Addition>
            </HeaderWrapper>
        )
@@ -97,6 +103,7 @@ const mapStateToProps = (state) => {
        list: state.getIn(['header','list']),
        currentList: state.getIn(['header','currentList']),
        mouseIn: state.getIn(['header','mouseIn']),
+       login: state.getIn(['login','login']),
        //focused: state.get('header').get('focused'),
    }
 };
@@ -126,7 +133,9 @@ const mapDispatchToProps = (dispatch) => {
        handleMouseLeave(){
            dispatch(actionCreators.handleMouseLeave());
        },
-
+       logOut(){
+           dispatch(loginActionCreators.logOut());
+       },
    }
 };
 export default connect(mapStateToProps,mapDispatchToProps)(Header);
